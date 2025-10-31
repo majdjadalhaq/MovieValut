@@ -34,11 +34,10 @@ const ensureTmdbKey = () => {
 // Small utility promise to add backoff between retry attempts.
 const sleep = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
-// Compose a TMDB request URL with the active API key and optional query params.
+// Compose a TMDB request URL with optional query params.
 const buildTmdbUrl = (path, params = {}) => {
   ensureTmdbKey();
   const url = new URL(path, TMDB_BASE_URL);
-  url.searchParams.set("api_key", CONFIG.TMDB_API_KEY);
   url.searchParams.set("language", "en-US");
   Object.entries(params).forEach(([key, value]) => {
     if (value !== undefined && value !== null && value !== "") {
@@ -64,7 +63,11 @@ const fetchJsonWithCache = async (
 
   while (attempt <= MAX_RETRIES) {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {
+        headers: {
+          'Authorization': `Bearer ${CONFIG.TMDB_V4_TOKEN}`,
+        },
+      });
       if (!response.ok) {
         throw new Error(`Request failed with status ${response.status}`);
       }
