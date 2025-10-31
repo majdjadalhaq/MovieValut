@@ -1,0 +1,5 @@
+# Local configuration (keeps private API keys out of source control)
+scripts/config.js
+
+# macOS metadata
+.DS_Store

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="MovieVault — curate, discover, and track the films that matter in a cinematic experience tailored for modern streaming fans."
+    />
+    <title>MovieVault • Modern Film Explorer</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+      integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="styles/core.css" />
+    <link rel="stylesheet" href="styles/layout.css" />
+    <link rel="stylesheet" href="styles/components.css" />
+    <link rel="stylesheet" href="styles/overlays.css" />
+    <link rel="stylesheet" href="styles/animations.css" />
+    <link rel="stylesheet" href="styles/responsive.css" />
+  </head>
+  <body data-theme="dark">
+    <div id="scroll-progress"></div>
+    <div id="app">
+      <div id="a11y-live" class="sr-only" aria-live="polite"></div>
+      <header class="main-header glass" id="top">
+        <div class="logo-group" aria-label="MovieVault brand">
+          <img src="assets/logo.svg" alt="MovieVault emblem" class="logo" />
+          <div class="logo-text-wrapper">
+            <span class="logo-text">MovieVault</span>
+            <span class="logo-subtext">Cinematic Universe</span>
+          </div>
+        </div>
+        <nav class="primary-nav" aria-label="Browse categories and genres">
+          <!-- Primary nav reserved for top alignment. The category rail and
+               dropdown are intentionally rendered below the header in a
+               sticky toolbar to improve scroll behavior (see .genre-toolbar).
+               The actual toolbar markup is placed just after the header. -->
+        </nav>
+        <div class="header-actions">
+          <div class="search-wrapper">
+            <label for="search-input" class="sr-only">Search movies</label>
+            <input
+              type="search"
+              id="search-input"
+              class="search-input"
+              placeholder="Search for a movie..."
+              autocomplete="off"
+            />
+            <div id="search-suggestions" class="suggestions hidden"></div>
+          </div>
+          <button
+            id="watched-trigger"
+            class="icon-button"
+            aria-label="Open watched list"
+            title="Watched"
+          >
+            <i class="fa-solid fa-eye"></i>
+          </button>
+          <button
+            id="favorites-trigger"
+            class="icon-button"
+            aria-label="Open favorites"
+            title="Favorites"
+          >
+            <i class="fa-solid fa-heart"></i>
+          </button>
+          <button
+            id="planner-trigger"
+            class="icon-button"
+            aria-label="Open session planner"
+            title="Session Planner"
+          >
+            <i class="fa-solid fa-list-check"></i>
+          </button>
+          <button
+            id="theme-toggle"
+            class="icon-button"
+            aria-label="Toggle theme"
+            title="Toggle theme"
+          >
+            <i class="fa-solid fa-moon"></i>
+          </button>
+          <button
+            id="hamburger-button"
+            class="icon-button hamburger"
+            aria-label="Open menu"
+            title="Menu"
+          >
+            <i class="fa-solid fa-bars"></i>
+          </button>
+        </div>
+      </header>
+
+      <main class="page-main">
+        <!-- Hero section removed per request (hero chips, parallax, CTA, stats).
+             The genre-toolbar remains beneath the header. -->
+
+        <!-- Genre toolbar: category rail + genre dropdown moved here so it sits
+             beneath the main header and becomes sticky when scrolling. -->
+        <div class="genre-toolbar">
+          <div class="selected-genres" id="selected-genres" aria-hidden="true"></div>
+          <div class="layout-shell">
+            <div class="category-rail" role="group" aria-label="Featured categories">
+              <button class="nav-link nav-chip" data-category="trending" type="button">
+                <i class="fa-solid fa-fire"></i>
+                <span>Trending</span>
+              </button>
+              <button class="nav-link nav-chip" data-category="popular" type="button">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>Popular</span>
+              </button>
+              <button class="nav-link nav-chip" data-category="top_rated" type="button">
+                <i class="fa-solid fa-star"></i>
+                <span>Top Rated</span>
+              </button>
+              <button class="nav-link nav-chip" data-category="upcoming" type="button">
+                <i class="fa-solid fa-clapperboard"></i>
+                <span>Upcoming</span>
+              </button>
+            </div>
+            <div class="genre-dropdown-group">
+              <button
+                id="genre-dropdown-trigger"
+                class="genre-dropdown-trigger"
+                type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                aria-controls="genre-dropdown"
+                title="Browse genres"
+              >
+                <span class="genre-trigger-label">
+                  <i class="fa-solid fa-sliders"></i>
+                  <span>Genres</span>
+                </span>
+                <span class="genre-trigger-summary" data-genre-summary>All genres</span>
+                <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+              </button>
+              <div
+                id="genre-dropdown"
+                class="genre-dropdown"
+                role="region"
+                aria-live="polite"
+                aria-label="Browse by genre"
+                aria-hidden="true"
+              >
+                <div class="genre-dropdown-panel">
+                  <header class="genre-dropdown-header">
+                    <span class="rail-label">Stack genres to refine</span>
+                    <button id="genre-clear" class="genre-clear" type="button" aria-label="Clear all selected genres">
+                      <i class="fa-solid fa-arrow-rotate-left"></i>
+                      Clear
+                    </button>
+                  </header>
+                  <p class="genre-dropdown-hint">
+                    Click to add a genre. Select more to combine filters, or tap again to remove.
+                  </p>
+                  <div
+                    id="genre-chip-track"
+                    class="genre-chip-track"
+                    role="listbox"
+                    aria-label="Genre filters"
+                    aria-multiselectable="true"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <section class="movie-section">
+          <div class="section-shell">
+            <div class="section-header">
+            <h2 class="section-title" id="movie-section-title">
+              Trending Now
+            </h2>
+          </div>
+          <div id="movies-grid" class="movies-grid"></div>
+          <div id="scroll-sentinel" class="scroll-sentinel" aria-hidden="true"></div>
+        </div>
+      </section>
+
+      </main>
+
+      <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+        <i class="fa-solid fa-chevron-up"></i>
+      </button>
+
+      <div id="toast-container" class="toast-container" aria-live="polite"></div>
+      <div id="modal-root"></div>
+      <div id="search-overlay" class="search-overlay" aria-hidden="true">
+        <div class="search-overlay-backdrop"></div>
+        <div class="search-overlay-panel">
+          <header class="search-overlay-header">
+            <h2>Quick Find</h2>
+            <div class="search-overlay-meta">
+              <span>Press ESC to close · ↑↓ to navigate · Enter to open</span>
+            </div>
+          </header>
+          <div class="search-overlay-body">
+            <section class="search-column" aria-label="Movies results">
+              <header class="search-column-header">
+                <h3>Movies</h3>
+                <button type="button" class="search-column-action" data-target="movies">
+                  <i class="fa-solid fa-plus"></i>
+                  Queue All
+                </button>
+              </header>
+              <ul id="search-results-movies" class="search-results-list" role="listbox"></ul>
+            </section>
+            <section class="search-column" aria-label="People results">
+              <header class="search-column-header">
+                <h3>People</h3>
+                <button type="button" class="search-column-action" data-target="people">
+                  <i class="fa-solid fa-user-plus"></i>
+                  Follow
+                </button>
+              </header>
+              <ul id="search-results-people" class="search-results-list" role="listbox"></ul>
+            </section>
+            <section class="search-column" aria-label="Collections results">
+              <header class="search-column-header">
+                <h3>Collections</h3>
+                <button type="button" class="search-column-action" data-target="collections">
+                  <i class="fa-solid fa-layer-group"></i>
+                  Explore
+                </button>
+              </header>
+              <ul id="search-results-collections" class="search-results-list" role="listbox"></ul>
+            </section>
+          </div>
+        </div>
+      </div>
+
+      <aside id="mobile-drawer" class="mobile-drawer" aria-hidden="true">
+        <div class="drawer-content glass">
+          <button
+            id="drawer-close"
+            class="icon-button close-button"
+            aria-label="Close menu"
+          >
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <div class="drawer-body"></div>
+        </div>
+      </aside>
+
+      <aside id="planner-drawer" class="planner-drawer" aria-hidden="true">
+        <div class="planner-panel glass">
+          <header class="planner-header">
+            <div>
+              <h2>Session Planner</h2>
+              <p>Create your movie marathon.</p>
+            </div>
+            <button
+              id="planner-close"
+              class="icon-button close-button"
+              aria-label="Close planner"
+            >
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </header>
+          <div class="planner-drop-zone" id="planner-drop-zone">
+            <p class="planner-empty">
+              Drag movies here or use the quick add buttons to curate a queue.
+            </p>
+            <ul id="planner-list" class="planner-list"></ul>
+          </div>
+          <footer class="planner-footer">
+            <div class="planner-summary">
+              <span id="planner-count">0 titles</span>
+              <span id="planner-runtime">Total runtime: 0 min</span>
+            </div>
+            <div class="planner-actions">
+              <button id="planner-clear" class="secondary-button">
+                <i class="fa-solid fa-broom"></i>
+                Clear
+              </button>
+              <button id="planner-save" class="primary-button">
+                <i class="fa-solid fa-floppy-disk"></i>
+                Save Plan
+              </button>
+            </div>
+          </footer>
+        </div>
+      </aside>
+
+      <div id="loader" class="loader hidden" aria-hidden="true">
+        <!-- Lottie loader removed; use a lightweight inline SVG spinner as a
+             fallback so the UI still indicates loading without external JSON. -->
+        <div class="fallback-spinner" aria-hidden="true" style="display:inline-block;vertical-align:middle;">
+          <svg width="48" height="48" viewBox="0 0 50 50" aria-hidden="true">
+            <circle cx="25" cy="25" r="20" fill="none" stroke="#E31" stroke-width="5" stroke-linecap="round" stroke-dasharray="31.4 31.4">
+              <animateTransform attributeName="transform" type="rotate" from="0 25 25" to="360 25 25" dur="1s" repeatCount="indefinite" />
+            </circle>
+          </svg>
+        </div>
+        <p class="loader-text">Fetching the latest blockbusters...</p>
+      </div>
+    </div>
+
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+      integrity="sha512-16esztaSRplJROstbIIdwX3N97V1+pZvV33ABoG1H2OyTttBxEGkTsoIVsiP1iaTtM8b3+hu2kB6pQ4Clr5yug=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script
+      defer
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"
+      integrity="sha512-Ic9xkERjyZ1xgJ5svx3y0u3xrvfT/uPkV99LBwe68xjy/mGtO+4eURHZBW2xW4SZbFrF1Tf090XqB+EVgXnVjw=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <!-- Lottie runtime removed (not used). -->
+    <script type="module" src="scripts/app.js"></script>
+  </body>
+</html>

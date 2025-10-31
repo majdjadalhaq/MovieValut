@@ -1,0 +1,313 @@
+/* ==========================================================================
+   LAYOUT CONTAINERS
+   ========================================================================== */
+
+#app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.page-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 6vw, 5rem);
+  position: relative;
+  z-index: 1;
+}
+
+.layout-shell,
+.header-shell,
+.section-shell {
+  width: min(var(--max-content-width), calc(100% - 2 * var(--page-gutter)));
+  margin: 0 auto;
+  padding: 0 var(--page-gutter);
+}
+
+/* ==========================================================================
+   HEADER & PRIMARY NAVIGATION
+   ========================================================================== */
+
+.header-shell {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(var(--space-sm), 2vw, var(--space-lg));
+  flex-wrap: wrap;
+}
+
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(120deg, var(--color-primary), var(--color-secondary));
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.55);
+  transition: width var(--transition-fast);
+  z-index: 900;
+}
+
+.main-header {
+  position: sticky;
+  top: 0;
+  z-index: 800;
+  background: rgba(4, 6, 15, 0.65);
+  backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  -webkit-backdrop-filter: blur(var(--blur-medium)) saturate(140%);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 10px 30px rgba(4, 6, 15, 0.45);
+  /* Layout: keep header children on a single row when space allows */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(var(--space-sm), 2vw, var(--space-md));
+  padding: clamp(0.6rem, 1.6vw, 0.9rem) 0;
+  min-height: var(--header-height);
+  flex-wrap: nowrap;
+}
+
+body.theme-light .main-header,
+body[data-theme="light"] .main-header {
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.12);
+}
+
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 0 0 auto;
+}
+
+.logo {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 26px rgba(99, 102, 241, 0.4));
+}
+
+.logo-text-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.logo-text {
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, #ffffff 0%, rgba(34, 211, 238, 0.9) 40%, rgba(99, 102, 241, 0.9) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.logo-subtext {
+  font-size: var(--text-xs);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.primary-nav {
+  /* Allow the nav to take available central space without forcing layout wrap */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(var(--space-xs), 1.4vw, var(--space-sm));
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 var(--space-xs);
+}
+
+.primary-nav::-webkit-scrollbar {
+  height: 6px;
+}
+
+.primary-nav::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.25);
+  border-radius: var(--radius-pill);
+}
+
+.category-rail {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.35rem 0.5rem;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(120deg, rgba(15, 23, 42, 0.6), rgba(34, 211, 238, 0.08));
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-xs);
+  justify-content: center;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  flex: 0 0 auto;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   GENRE TOOLBAR
+   ========================================================================== */
+
+.genre-toolbar {
+  position: sticky;
+  top: var(--filter-offset);
+  z-index: 740;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(var(--space-sm), 2vw, var(--space-md));
+  padding: clamp(0.45rem, 1.2vw, 0.75rem) var(--page-gutter);
+  width: 100%;
+}
+
+/* Center the category rail and the genre dropdown trigger together.
+   Use the existing .layout-shell as a horizontal flex container on larger
+   viewports so the rail and the dropdown sit next to each other and are
+   centered as a group. Responsive rules below will override for narrow
+   screens (<= 992px). */
+.genre-toolbar .layout-shell {
+  /* Stack the category rail above the genre trigger and keep both
+     centered as a group on larger viewports. Mobile rules under 992px
+     still apply and will keep the existing responsive behavior. */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(var(--space-xxs), 1.2vw, var(--space-xs));
+  width: min(var(--max-content-width), calc(100% - 2 * var(--page-gutter)));
+  margin: 0 auto;
+}
+
+/* Prevent the dropdown group from forcing full width on desktop so it can
+   sit beside the category rail; the responsive stylesheet will set it to
+   100% for small screens. */
+.genre-toolbar .genre-dropdown-group {
+  width: auto;
+  max-width: none;
+  margin: 0;
+}
+
+.selected-genres {
+  display: none; /* hidden by default; populated dynamically when genres selected */
+}
+
+.selected-genres button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--color-text-primary);
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  transition: background var(--transition-fast), transform var(--transition-fast), border-color var(--transition-fast);
+}
+
+.selected-genres button:hover,
+.selected-genres button:focus-visible {
+  background: rgba(99, 102, 241, 0.22);
+  border-color: rgba(99, 102, 241, 0.35);
+  transform: translateY(-1px);
+}
+
+.selected-genre-badge::after {
+  content: "×";
+  font-weight: 600;
+  font-size: 0.8em;
+  opacity: 0.7;
+  margin-left: 0.45rem;
+}
+
+body.theme-light .selected-genres button,
+body[data-theme="light"] .selected-genres button {
+  background: rgba(15, 23, 42, 0.08);
+  border-color: rgba(148, 163, 184, 0.3);
+  color: var(--color-text-primary);
+}
+
+body.theme-light .selected-genre-badge::after,
+body[data-theme="light"] .selected-genre-badge::after {
+  color: rgba(71, 85, 105, 0.65);
+}
+
+/* ==========================================================================
+   MOVIE GRID & GENERAL LAYOUT
+   ========================================================================== */
+
+.movie-section {
+  position: relative;
+  padding: 0 0 clamp(4rem, 8vw, 6rem);
+}
+
+.section-shell {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vw, 2rem);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--grid-gap);
+}
+
+.scroll-sentinel {
+  width: 100%;
+  height: 1px;
+}
+
+.back-to-top {
+  position: fixed;
+  right: clamp(1rem, 4vw, 2.25rem);
+  bottom: clamp(1.5rem, 6vw, 3rem);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-secondary), var(--color-primary));
+  color: #ffffff;
+  display: grid;
+  place-items: center;
+  border: none;
+  box-shadow: var(--shadow-sm);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity var(--transition-fast), transform var(--transition-fast);
+  z-index: 850;
+}
+
+.back-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+.app-layers {
+  position: relative;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.app-layers > * {
+  pointer-events: auto;
+}
