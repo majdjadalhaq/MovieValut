@@ -69,7 +69,7 @@ MovieVault/
    cd movievault
    ```
 2. **Add your TMDB API key**
-   Update `scripts/config.js` and replace `"YOUR_TMDB_API_KEY"` with your actual TMDB API key. The `.gitignore` entry prevents `config.js` from being committed.
+   Copy `scripts/config.template.js` to `scripts/config.js` and replace `"your_tmdb_api_key_here"` with your actual TMDB API key. The `.gitignore` entry prevents `config.js` from being committed.
 3. **Open the app**
    - Double-click `index.html`, or
    - Serve locally (recommended for CORS safety):
