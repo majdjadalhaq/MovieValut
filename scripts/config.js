@@ -1,6 +1,6 @@
 // Configuration for MovieVault.
 
-const TMDB_API_KEY = "634f3424186067405c1368917c4aedf6";
+const TMDB_API_KEY = "your_tmdb_api_key_here";
 
 export const CONFIG = {
   TMDB_API_KEY,
