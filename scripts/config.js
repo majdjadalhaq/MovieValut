@@ -1,16 +1,5 @@
 // Configuration for MovieVault.
-// NOTE: Avoid embedding secrets in source. This module will attempt to
-// read the TMDB API key from a runtime-safe location instead of keeping
-// a literal key in the repository.
 
-// Priority order for locating the TMDB key at runtime:
-// 1. window.__MOVIEVAULT_TMDB_KEY (set by a local script or dev tooling)
-// 2. localStorage key: 'movievault_tmdb_key' (useful for local development)
-// 3. empty string (no key configured)
-
-// NOTE: user-provided TMDB key has been placed here per request.
-// Security note: this will persist the key in source. Rotate the key if
-// it was ever pushed to a public repository.
 const TMDB_API_KEY = "634f3424186067405c1368917c4aedf6";
 
 export const CONFIG = {
