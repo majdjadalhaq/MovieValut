@@ -6,7 +6,7 @@
 ![TMDB API](https://img.shields.io/badge/TMDB_API-E50914?style=for-the-badge&logo=the-movie-database&logoColor=white)
 
 A beautiful, performant movie discovery platform built with vanilla JavaScript and the TMDB API
-
+- **Live Demo** - [https://yourusername.github.io/MovieVault](https://majdjadalhaq.github.io/MovieValut/)
 ---
 
 ## 📖 About
@@ -161,32 +161,6 @@ MovieVault/
 
 ---
 
-## 📸 Screenshots
-
-Click to view screenshots:
-
-### 🎬 Main Dashboard
-
-![Main Dashboard](./docs/screenshots/dashboard.png)
-
-### 🔍 Search Overlay
-
-![Search Overlay](./docs/screenshots/search.png)
-
-### 🎭 Movie Details Modal
-
-![Movie Details](./docs/screenshots/modal.png)
-
-### 📋 Session Planner
-
-![Session Planner](./docs/screenshots/planner.png)
-
-### 📱 Mobile View
-
-![Mobile View](./docs/screenshots/mobile.png)
-
----
-
 ## 💻 Code Style & Best Practices
 
 ### JavaScript
@@ -232,20 +206,9 @@ Click to view screenshots:
 
 ---
 
-## 🔒 Security & Privacy
-
-- ✅ API key stored client-side (required for TMDB v4)
-- ✅ No user data transmitted beyond API calls
-- ✅ localStorage isolation per domain
-- ✅ HTTPS recommended for production
-- ✅ CORS handled by TMDB servers
-- ✅ XSS protection via DOM sanitization
-
----
-
 ## 📝 License
 
-This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** .
 
 ---
 
@@ -272,9 +235,8 @@ Contributions are welcome! Please follow these steps:
 
 ## 📧 Contact
 
-- **Project Maintainer** - [Your Name](https://github.com/yourusername)
-- **Project Link** - [MovieVault Repository](https://github.com/yourusername/MovieVault)
-- **Live Demo** - [https://yourusername.github.io/MovieVault](https://yourusername.github.io/MovieVault)
+- **Project Maintainer** - [Your Name](https://github.com/majdjadalhaq)
+- **Project Link** - [MovieVault Repository](https://github.com/majdjadalhaq/MovieVault)
 
 ---
 
@@ -284,6 +246,6 @@ Special thanks to the TMDB community for providing an incredible free API for mo
 
 ---
 
-Made with ❤️ and lots of ☕ by [Your Name]
+Made with lots of ☕ 
 
-⭐ Star this repo if you find it helpful!
+⭐ Star this repo if you find it nice!
